@@ -18,7 +18,7 @@ public class UIController : MonoBehaviour {
 
 				//DRAG START
 				if (Input.GetMouseButtonDown (0)) {
-					for (int graph = 0; graph < MAX_NUMBER_GRAPHS; graph++) {
+					
 
 						mouseLocation = Input.mousePosition;
 						graphs[graph].over = false;
@@ -73,32 +73,10 @@ public class UIController : MonoBehaviour {
 								graphs[graph].addPoint (val);
 							} else { graphs[graph].addPoint (0f); }
 						} else { graphs[graph].addPoint (0f); }
-
 					}
 
 					graphPrefab[graph].GetComponent<RectTransform> ().position = new Vector2 (graphs[graph].positionX, graphs[graph].positionY);
 					graphPrefab[graph].GetComponent<RectTransform> ().sizeDelta = new Vector2 (graphs[graph].width, graphs[graph].yAxisMax*.75f + 200);
-					//UPDATE NODES
-					for (int point = 0; point < MAX_NUMBER_POINTS; point++) {
-						Vector2 new_pos = new Vector2 ((float) point / (float) MAX_NUMBER_POINTS * (float) graphs[graph].width - graphs[graph].width / 2, graphs[graph].points[point] - graphs[graph].height / 2);
-						graphPrefab[graph].GetComponent<NodeManager> ().points[point].GetComponent<RectTransform> ().localPosition = new_pos;
-					}
-					//UPDATE LINES
-					for (int point = 0; point < MAX_NUMBER_POINTS - 1; point++) {
-						//distance and theta			 
-						//define x of points[point](float)point/(float)MAX_NUMBER_POINTS * (float)graphs[graph].width
-						float nodePointX = (float) point / (float) MAX_NUMBER_POINTS * (float) graphs[graph].width;
-						float nodePointX1 = ((float) point + 1) / (float) MAX_NUMBER_POINTS * (float) graphs[graph].width;
-						float distance = Mathf.Sqrt (Mathf.Pow (nodePointX - nodePointX1, 2) + Mathf.Pow (graphs[graph].points[point] - graphs[graph].points[point + 1], 2));
-						float angle = Mathf.Rad2Deg * Mathf.Atan ((graphs[graph].points[point] - graphs[graph].points[point + 1]) / (nodePointX - nodePointX1));
-						float xNew = (nodePointX + nodePointX1) / 2 - graphs[graph].width / 2;
-						float yNew = (graphs[graph].points[point] + graphs[graph].points[point + 1]) / 2 - graphs[graph].height / 2; // * th
-
-						graphPrefab[graph].GetComponent<NodeManager> ().lines[point].GetComponent<RectTransform> ().sizeDelta = new Vector2 (distance, 5);
-						graphPrefab[graph].GetComponent<NodeManager> ().lines[point].GetComponent<RectTransform> ().localRotation = Quaternion.Euler (new Vector3 (0, 0, angle));
-						graphPrefab[graph].GetComponent<NodeManager> ().lines[point].GetComponent<RectTransform> ().localPosition = new Vector2 (xNew, yNew);
-
-					}
 				}
 			}
 
