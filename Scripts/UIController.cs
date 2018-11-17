@@ -6,20 +6,23 @@ public class UIController : MonoBehaviour {
 
 	BookObject pirateBook = new BookObject();
 
+	//Mouse States
+	Vector2 mouseLocation = new Vector2(0,0);
+	Vector2 newMouseLocation = new Vector2(0,0);
+
+
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
-		void Update () {
+	/*	void Update () {
 			counter++;
 			if (true) {
 
 				//DRAG START
 				if (Input.GetMouseButtonDown (0)) {
-					
-
 						mouseLocation = Input.mousePosition;
 						graphs[graph].over = false;
 
@@ -35,7 +38,7 @@ public class UIController : MonoBehaviour {
 				}
 				//DRAG MOVE
 				if (Input.GetMouseButton (0)) {
-					Vector2 newMouseLocation = Input.mousePosition;
+					newMouseLocation = Input.mousePosition;
 					for (int graph = 0; graph < MAX_NUMBER_GRAPHS; graph++) {
 
 						if (graphs[graph].over) {
@@ -83,9 +86,11 @@ public class UIController : MonoBehaviour {
 		}
 
 		//CHECKS IF CLICK IS WITHIN GIVEN BOUNDS
-		public bool clickOn (float xMin, float xMax, float yMin, float yMax, Vector2 mousePosition, Vector2 otherPosition) {
+		/*public bool clickOn (float xMin, float xMax, float yMin, float yMax, Vector2 mousePosition, Vector2 otherPosition) {
 			if (mousePosition.x + xMin < otherPosition.x && mousePosition.x + xMax > otherPosition.x)
 				if (mousePosition.y + yMin < otherPosition.y && mousePosition.y + yMax > otherPosition.y) return true;
 			return false;
-		}
+		}*/
+
+		
 }
