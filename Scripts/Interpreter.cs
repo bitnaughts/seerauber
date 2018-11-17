@@ -58,6 +58,7 @@ public class Interpreter {
 			switch (block.command) {
 				case "loop":
 					string[] temp = block.parameter.Split ('-');
+					int 
 					for (int i = Int32.Parse (temp[0]); i != Int32.Parse (temp[1]); i++)
 						interpret (block.nestedBlocks, index);
 					break;

@@ -40,7 +40,7 @@ public class PirateObject
     static string[] hobbies = { "fishing", "cleaning", "brewing", "singing", "entertaining", "gambling", "sparring", "studying", "praying" };
 
 
-
+/*
 
     public static string generateName()
     {
@@ -62,7 +62,5 @@ public class PirateObject
                 return insults1[(int)(Random.value * insults1.Length)] + " " + insults2[(int)(Random.value * insults2.Length)] + " " + insults3[(int)(Random.value * insults3.Length)];
         }
         return "";
-    }
-
-
+    }*/
 }
