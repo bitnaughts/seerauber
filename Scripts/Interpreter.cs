@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class Interpreter{
+public class Interpreter {
 
 	/*
 	! Front End
@@ -35,64 +36,65 @@ public class Interpreter{
 
 	// Use this for initialization
 
-/*
-Pirate object
+	/*
+	Pirate object
 
-values:
-codeBlock
+	values:
+	codeBlock
 
 
-*/
- PirateObject[] pirates;
+	*/
+	PirateObject[] pirates;
 
-/*  public void run()
-{
+	/*public void run () {
 
-	for(int i = 0;i !=pirates.Length;i++)
-	{
-		interpret(pirates[i].getBaseBlock(),i);
+		for (int i = 0; i != pirates.Length; i++) {
+			interpret (pirates[i].getBaseBlock (), i);
+		}
 	}
-}
-void interpret(CodeBlock parentBlock,int index)
-{
-	foreach(CodeBlock childBlock in parentBlock)
-	{
-		switch (parentBlock.command)
-	{
-		case "loop":
-			interpret()
-		break;
-		case "task":
-			pirates[index].tasks.Enqueue(parentBlock.parameter);
-		break;
-		case "check":
-		break;
-	}
-	}
-}
 
-string getCommand(CodeBlock block)
-{
-	switch (block.command)
+	 void interpret (CodeBlock[] blocks, int index) {
+		foreach (CodeBlock block in blocks) {
+			switch (block.command) {
+				case "loop":
+					string[] temp = block.parameter.Split ('-');
+					for (int i = Int32.Parse (temp[0]); i != Int32.Parse (temp[1]); i++)
+						interpret (block.nestedBlocks, index);
+					break;
+
+					//if parentBlock.command = task, then enqueue parameter
+
+				case "task":
+					pirates[index].tasks.Enqueue (parentBlock.parameter);
+					break;
+				case "check":
+					//block.parameter
+					break;
+			}
+		}
+	}*/
+
+	/*string getCommand(CodeBlock block)
 	{
-		case "loop":
-		break;
-		case "task":
-			
-		break;
-		case "check":
-		break;
-	}
-}*/
+		switch (block.command)
+		{
+			case "loop":
+			break;
+			case "task":
+				
+			break;
+			case "check":
+			break;
+		}
+	}*/
 
-
-		/*
-			for Every pirate object
-				if needs tasks
-					for every code block
-						if event == true
-							run recursively all code blocks inside event block
-			^ generates a queue of tasks
-		 */
+	/*
+		for Every pirate object
+			if needs tasks
+				for every code block
+					if event == true
+						run recursively all code blocks inside event block
+		^ generates a queue of tasks
+	 */
 
 }

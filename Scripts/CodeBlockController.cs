@@ -9,19 +9,19 @@ public class CodeBlockController : MonoBehaviour {
 	//Mouse States
 	Vector2 mouseLocation = new Vector2 (0, 0);
 	Vector2 newMouseLocation = new Vector2 (0, 0);
+	int height;
 
 	// Use this for initialization
 	void Start () {
 		reference = new CodeBlock();
-		print (reference.nestedBlocks);
+		height = (reference.nestedBlocks == null) ? 0 : reference.nestedBlocks.Length;//  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
+		print (height);
 	}
 
 	// Update is called once per frame
 	void Update () {
 		        //random amount of subchildren
-        System.Random ran = new System.Random();//int size = ;// (int) (new Random().Next() * 2);
-		int height = (reference.nestedBlocks == null) ? 0 : (int)(ran.Next(0,3));//reference.nestedBlocks.Length;//  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
-		this.GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, height * 25 + 20);
+        this.GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, height * 25 + 20);
 		//DRAG START
 		if (Input.GetMouseButtonDown (0)) {
 			mouseLocation = Input.mousePosition;

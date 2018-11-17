@@ -6,11 +6,8 @@ public class PirateObject
     //Queue<string> 
         //events in it
         //tasks and loops n stuff
-    int health;
-    int life;
-    int death;
-    int whateverelse;
-
+    string name; 
+    
     public PirateObject() {
 
     }

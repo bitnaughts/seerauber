@@ -15,13 +15,12 @@ public class CodeBlock {
 
 	//const string[] commandlist = { "loop", "task", "check" };
 	//const string[] tasklist = { "sleep", "loadCannon", "eat", "drink" };
-	//if command = loop, then parameter is "X -> Y"
+	//if command = loop, then parameter is "X-Y"
 	//if command = task, then parameter is from taskList
 	//if command = check, parameter is boolean statement
 
 	public CodeBlock () {
-        //random amount of subchildren
-        //Random ran = new Random();//int size = ;// (int) (new Random().Next() * 2);
+        //Randomizer.getInteger()
 	    nestedBlocks = new CodeBlock[1];
 		string command="";
 		string parameter="";
