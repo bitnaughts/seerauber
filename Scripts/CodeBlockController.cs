@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,12 +13,15 @@ public class CodeBlockController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		reference = new CodeBlock();
+		print (reference.nestedBlocks);
 	}
 
 	// Update is called once per frame
 	void Update () {
-		int height = (reference.nestedBlocks == null) ? 0 : recursivelyGetHeight(reference);//l.nestedBlocks.Length;
-		this.GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, height * 100 + 100);
+		        //random amount of subchildren
+        System.Random ran = new System.Random();//int size = ;// (int) (new Random().Next() * 2);
+		int height = (reference.nestedBlocks == null) ? 0 : (int)(ran.Next(0,3));//reference.nestedBlocks.Length;//  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
+		this.GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, height * 25 + 20);
 		//DRAG START
 		if (Input.GetMouseButtonDown (0)) {
 			mouseLocation = Input.mousePosition;
@@ -55,9 +59,9 @@ public class CodeBlockController : MonoBehaviour {
 	}
 
 
-	public int recursivelyGetHeight(CodeBlock ref) {
-		for (int i = 0; i < ref.nestedBlocks.Length; i++) {
-			return recursivelyGetHeight(ref.nestedBlocks[i]) + 1;
+	public int recursivelyGetHeight(CodeBlock refer) {
+		for (int i = 0; i < refer.nestedBlocks.Length; i++) {
+			return recursivelyGetHeight(refer.nestedBlocks[i]) + 1;
 		}
 		return 1;
 	}

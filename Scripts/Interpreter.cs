@@ -50,25 +50,35 @@ codeBlock
 
 	for(int i = 0;i !=pirates.Length;i++)
 	{
-		interpret(pirates[i].getBaseBlock());
+		interpret(pirates[i].getBaseBlock(),i);
 	}
 }
-void interpret(CodeBlock parentBlock)
+void interpret(CodeBlock parentBlock,int index)
 {
 	foreach(CodeBlock childBlock in parentBlock)
 	{
-		
+		switch (parentBlock.command)
+	{
+		case "loop":
+			interpret()
+		break;
+		case "task":
+			pirates[index].tasks.Enqueue(parentBlock.parameter);
+		break;
+		case "check":
+		break;
+	}
 	}
 }
 
-void getCommand(CodeBlock block)
+string getCommand(CodeBlock block)
 {
 	switch (block.command)
 	{
 		case "loop":
 		break;
 		case "task":
-		
+			
 		break;
 		case "check":
 		break;

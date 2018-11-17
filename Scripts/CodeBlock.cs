@@ -1,3 +1,4 @@
+using System;
 public class CodeBlock {
 	//BRIAN'S UI CODE
 	public bool isDragging = false;
@@ -20,8 +21,8 @@ public class CodeBlock {
 
 	public CodeBlock () {
         //random amount of subchildren
-        int size = (int) (new Random().next() * 10);
-		CodeBlock[] nestedBlocks new CodeBlock[size];
+        //Random ran = new Random();//int size = ;// (int) (new Random().Next() * 2);
+	    nestedBlocks = new CodeBlock[1];
 		string command="";
 		string parameter="";
 	}
