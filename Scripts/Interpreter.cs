@@ -72,8 +72,13 @@ public class Interpreter {
 					break;
 			}
 		}
-	}*/
+	}
+bool check(string param)
+{
+	string[] arr = param.Split('-');
+	if(arr[0].Contains("(")&&arr[0].Contains(")"))
 
+}*/
 	/*string getCommand(CodeBlock block)
 	{
 		switch (block.command)
