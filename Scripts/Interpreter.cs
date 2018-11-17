@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interpreter : MonoBehaviour {
+public class Interpreter{
 
 	/*
 	! Front End
@@ -34,12 +34,47 @@ public class Interpreter : MonoBehaviour {
 	*/
 
 	// Use this for initialization
-	void Start () {
+
+/*
+Pirate object
+
+values:
+codeBlock
+
+
+*/
+ PirateObject[] pirates;
+
+/*  public void run()
+{
+
+	for(int i = 0;i !=pirates.Length;i++)
+	{
+		interpret(pirates[i].getBaseBlock());
+	}
+}
+void interpret(CodeBlock parentBlock)
+{
+	foreach(CodeBlock childBlock in parentBlock)
+	{
 		
 	}
+}
 
-	// Update is called once per frame
-	void Update () {
+void getCommand(CodeBlock block)
+{
+	switch (block.command)
+	{
+		case "loop":
+		break;
+		case "task":
+		
+		break;
+		case "check":
+		break;
+	}
+}*/
+
 
 		/*
 			for Every pirate object
@@ -49,5 +84,5 @@ public class Interpreter : MonoBehaviour {
 							run recursively all code blocks inside event block
 			^ generates a queue of tasks
 		 */
-	}
+
 }
