@@ -5,41 +5,86 @@ using UnityEngine.UI;
 
 public class PirateController : MonoBehaviour {
 
-    static string[] nameFirst1 = { "Alex", "Ben", "Bill", "Dan", "Dill", "Ed", "Frank", "Greg", "John", "Jon", "Mart", "Matt", "Nat", "Phil", "Rich", "Sam", "Stan", "Stuart", "Thom", "Will" };
-    static string[] nameFirst2 = { "", "", "", "", "", "", "son", "as", "ard", "ward", "uel", "hew", "mund", "iel" };
-    static string[] nameLast1 = { "Al", "An", "Arch", "Ard", "Aust", "Bell", "Bick", "Bis", "Brad", "Bran", "Cart", "Cas", "Cax", "Chand", "Chap", "Clar", "Clift", "Daw", "Dix", "Dorm", "Doug", "Ed", "Es", "Fras", "Gard", "Good", "Grif", "Gros", "Had", "Har", "Hol", "John", "Jack", "Lat", "Marsh", "Mart", "Mitch", "Nel", "Nor", "Ob", "Pin", "Pow", "Robin", "Row", "Sal", "Saw", "Sed", "Thomp", "Wal", "Wal", "Whit" };
-    static string[] nameLast2 = { "cott", "den", "drews", "man", "all", "ard", "dock", "non", "er", "ton", "well", "ton", "idge", "on", "son", "las", "wards", "mund", "win", "ell", "son", "ford" };
+    const int LADDER = 0;
 
-    //Hobbies                // get food,more clean,if ingred,happy other people for 2,need others similar, improves stat, waste time? lel
-    static string[] hobbies = { "fishing", "cleaning", "brewing", "singing", "entertaining", "gambling", "sparring", "studying", "praying" };
+    GameObject codebase;
+    PirateObject reference;
 
     // Use this for initialization
-    void Start()
-    {
-
+    void Start () {
+        reference = new PirateObject ();
+        codebase = GameObject.Find("CodeBase");
     }
 
     int count = 0;
+    Vector2 target = new Vector2(0,0);
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update () {
+
         if (count++ == 100)
         {
-            
             count = 0;
-            GameObject.Find("Text").GetComponent<Text>().text = generateName();
+            target = new Vector2(Randomizer.getInteger(), -Randomizer.getInteger());
+        }
+        MoveTo(target);
+        // if (!MoveTo(GetLocation(reference.tasks.peek.target)))
+
+    }
+
+    void OnMouseOver() {
+        if (Input.GetMouseButtonDown(0))
+        {
+            codebase.GetComponent<UIController>().clickOnPirate(reference);
         }
     }
-
-
-
-    public static string generateName()
-    {
-        return nameFirst1[(int)(Random.value * nameFirst1.Length)] + nameFirst2[(int)(Random.value * nameFirst2.Length)] + " " + nameLast1[(int)(Random.value * nameLast1.Length)] + nameLast2[(int)(Random.value * nameLast2.Length)];
+    int GetID(string obj) {
+        if (obj == "Ladder") {
+            return 0;
+        }
+        return -1;
     }
-    public static string generateHobby()
-    {
-        return hobbies[(int)(Random.value * hobbies.Length)];
+
+    Vector2 GetLocation (string obj) {
+        return GetLocation(GetID(obj));
     }
+    Vector2 GetLocation (int obj) {
+        switch (obj) {
+            case LADDER:
+                return new Vector2 (-1, 0);
+        }
+        return new Vector2 (100, 100);
+    }
+    bool MoveTo (Vector2 target) {
+        Vector2 unroundedTransform = transform.position;
+        unroundedTransform *= 10;
+        transform.position = new Vector2(((int)unroundedTransform.x)/10f, ((int)unroundedTransform.y)/10f);
+
+        if (transform.position.y != target.y) {
+            /* Find a ladder */
+            if (transform.position.x < GetLocation ("Ladder").x) {
+                transform.Translate (new Vector2 (.1f, 0));
+            } else if (transform.position.x > GetLocation ("Ladder").x) {
+                transform.Translate (new Vector2 (-.1f, 0));
+            } else {
+                /* Move on ladder */
+                if (transform.position.y < target.y) {
+                    transform.Translate (new Vector2 (0, .1f));
+                } else if (transform.position.y > target.y) {
+                    transform.Translate (new Vector2 (0, -.1f));
+                }
+            }
+        } else {
+            /* Navigate directly to target */
+            if (transform.position.x < target.x) {
+                transform.Translate (new Vector2 (.1f, 0));
+            } else if (transform.position.x > target.x) {
+                transform.Translate (new Vector2 (-.1f, 0));
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
