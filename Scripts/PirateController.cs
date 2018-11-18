@@ -7,11 +7,13 @@ public class PirateController : MonoBehaviour {
 
     const int LADDER = 0;
 
+    GameObject codebase;
     PirateObject reference;
 
     // Use this for initialization
     void Start () {
         reference = new PirateObject ();
+        codebase = GameObject.Find("CodeBase");
     }
 
     int count = 0;
@@ -23,19 +25,18 @@ public class PirateController : MonoBehaviour {
         if (count++ == 100)
         {
             count = 0;
-            target = new Vector2(Randomizer.getInteger(), Randomizer.getInteger());
+            target = new Vector2(Randomizer.getInteger(), -Randomizer.getInteger());
         }
         MoveTo(target);
         // if (!MoveTo(GetLocation(reference.tasks.peek.target)))
-        //if (reference
-        /*
-        
-            if (tasks exist)
-                go to task area
-                    ...
-                dequeue task
-    
-         */
+
+    }
+
+    void OnMouseOver() {
+        if (Input.GetMouseButtonDown(0))
+        {
+            codebase.GetComponent<UIController>().clickOnPirate(reference);
+        }
     }
     int GetID(string obj) {
         if (obj == "Ladder") {

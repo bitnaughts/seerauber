@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIController : MonoBehaviour {
 
 	BookObject pirateBook = new BookObject();
+    public GameObject book;
 
 	//Mouse States
 	Vector2 mouseLocation = new Vector2(0,0);
@@ -16,6 +17,12 @@ public class UIController : MonoBehaviour {
 		
 	}
 	
+    public void clickOnPirate(PirateObject pirate)
+    {
+        book.SetActive(true);
+
+		
+    }
 
 
 		

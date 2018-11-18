@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Interpreter {
 
@@ -46,53 +46,84 @@ public class Interpreter {
 	*/
 	PirateObject[] pirates;
 
-	/*public void run () {
+	public void run () {
 
-		for (int i = 0; i != pirates.Length; i++) {
-			interpret (pirates[i].getBaseBlock (), i);
+		for (int i = 0; i < pirates.Length; i++) {
+			interpret (pirates[i].getBaseBlock ().nestedBlocks, i);
 		}
 	}
 
-	 void interpret (CodeBlock[] blocks, int index) {
+	void interpret (CodeBlock[] blocks, int index) {
 		foreach (CodeBlock block in blocks) {
 			switch (block.command) {
 				case "loop":
-					string[] temp = block.parameter.Split ('-');
-					int 
-					for (int i = Int32.Parse (temp[0]); i != Int32.Parse (temp[1]); i++)
+					string[] temp = block.parameter.Split (new Char[] { '-' });
+					int lower = Int32.Parse (temp[0]), upper = Int32.Parse (temp[1]);
+					for (int i = lower; i < upper; i++)
 						interpret (block.nestedBlocks, index);
 					break;
 
-					//if parentBlock.command = task, then enqueue parameter
+					//if block.command = task, then enqueue parameter
 
 				case "task":
-					pirates[index].tasks.Enqueue (parentBlock.parameter);
+					//pirates[index].tasks.Enqueue (block.parameter);
 					break;
 				case "check":
-					//block.parameter
+					if (check (block.parameter, index)) {
+						interpret (block.nestedBlocks, index);
+					}
 					break;
 			}
 		}
-	}
-bool check(string param)
-{
-	string[] arr = param.Split('-');
-	if(arr[0].Contains("(")&&arr[0].Contains(")"))
 
-}*/
-	/*string getCommand(CodeBlock block)
-	{
-		switch (block.command)
-		{
-			case "loop":
-			break;
-			case "task":
-				
-			break;
-			case "check":
-			break;
+	}
+	bool check (string param, int index) {
+		if (!param.Contains ("-")) {
+			if (param == "true")
+				return true;
+			if (param == "false")
+				return false;
+			switch (param) {
+				case "isNight()":
+					//return statemachine.isNight();
+					break;
+				case "isHungry()":
+					//return pirates[index].isHungry();
+					break;
+				case "isThirsty()":
+					//return pirates[index].isThirsty();
+					break;
+				case "isCombat()":
+					//return statemachine.isCombat();
+					break;
+				case "isTired()":
+					//return pirates[index].isTired();
+					break;
+				case "isInjured()":
+					//return pirates[index].isInjured();
+					break;
+				case "isIdle()":
+					//return pirates[index].isIdle();
+					break;
+				case "isMoving()":
+					//return pirates[index].isMoving();
+					break;
+			}
+	
 		}
-	}*/
+		string[] arr = param.Split (new Char[] { '-' });
+		/*
+		  for(int i = 0; i!=arr.Length;i++){
+			if(arr[i].Contains("(")&&arr[i].Contains(")"))
+			{
+				
+			}
+			else if("<")
+		}
+		*/
+			return false;
+
+	}
 
 	/*
 		for Every pirate object
