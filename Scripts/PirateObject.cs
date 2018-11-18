@@ -1,13 +1,14 @@
 ﻿
 using System;
+using System.Collections.Generic;
 public class PirateObject
 {
     CodeBlock baseBlock = new CodeBlock();
-    //Queue<string> 
+    public Queue<string> tasks = new Queue<string>();
         //events in it
         //tasks and loops n stuff
     string name; 
-
+    public bool isHungry, isThirsty, isTired, isInjured, isIdle, isMoving;
 
     public PirateObject() {
 
