@@ -160,8 +160,17 @@ public static class Interpreter {
 					stateFloat[counter] = pirate.hunger;
 					counter++;
 				} else if (splitParameterArray[i] == "thirst") {
-					stateBool[counter] = pirate.thirst;
+					stateFloat[counter] = pirate.thirst;
 					counter++;
+				}
+				else if (splitParameterArray[i] == "sleep") {
+					stateFloat[counter] = pirate.sleep;
+					counter++;
+				}
+				else if (splitParameterArray[i] == "sailing") {
+					stateFloat[counter] = pirate.sailing;
+					counter++;
+				
 				} else if (splitParameterArray[i] == "true") {
 					stateBool[counter] = true;
 					counter++;
@@ -179,7 +188,7 @@ public static class Interpreter {
 			//task = stateFloat[counter].ToString () + ", "+stateFloat[counter + 1];
 			switch (splitParameterArray[1]) {
 				case "<":
-				task = stateFloat[counter].ToString () + ",++ "+stateFloat[counter + 1];
+				//task = stateFloat[counter].ToString () + ",++ "+stateFloat[counter + 1];
 					return stateFloat[counter] < stateFloat[counter + 1];
 					break;
 				case ">":

@@ -24,7 +24,7 @@ public class CodeBlockController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		print ("ref:" + reference);
+		//print ("ref:" + reference);
 		if (true) { //reference != null) {
 			height = 0;
 			if (reference.nestedBlocks != null) {

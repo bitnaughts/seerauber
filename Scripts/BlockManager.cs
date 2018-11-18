@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BlockManager : MonoBehaviour {
 
-	GameObject[] blockPool = new GameObject[10];
+	GameObject[] blockPool = new GameObject[50];
 
 	public GameObject blockPrefab;
 
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 25; i++) {
 			blockPool[i] = Instantiate (blockPrefab, this.transform) as GameObject;
 			blockPool[i].SetActive (false);
 		}
@@ -24,13 +24,14 @@ public class BlockManager : MonoBehaviour {
 		foreach (CodeBlock block in output) {
 			print (block.parameter);
 		}
-		print (CodeBlock.printOut (baseBlock.nestedBlocks));
+	//	print (CodeBlock.printOut (baseBlock.nestedBlocks));
 		count = -1;
 
 		///printOut(baseBlock.nestedBlocks);
 		for (int i = 0; i < output.Length; i++) {
 			//	if (i == 0) {
 			//print (baseBlock.nestedBlocks[i]);
+			print(output[i].parameter);
 			blockPool[i].SetActive (true);
 			blockPool[i].transform.GetChild (0).gameObject.GetComponent<CodeBlockController> ().reference = output[i]; //output.nestedBlocks[i];
 			//	blockPool[i].
@@ -42,7 +43,7 @@ public class BlockManager : MonoBehaviour {
 	}
 
 	void printOut (CodeBlock[] blockArr) {
-		print (count);
+		//print (count);
 		foreach (CodeBlock block in blockArr) {
 			count++;
 			blockPool[count].SetActive (true);

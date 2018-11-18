@@ -14,22 +14,25 @@ public class CodeBlock {
     public int indent;
 
     public string[] commandlist = new string[5] { "loop", "task", "check", "variable", "math" };
-    public string[] tasklist = new string[5] { "sleep", "loadCannon", "eat", "drink", "sail" };
-    public string[] checklist = new string[7] { "isSailing", "isCombat", "isHungry", "isThirsty", "isDay", "isNight", "hunger" };
+    public string[] tasklist = new string[6] { "sleep", "loadCannon", "eat", "drink", "sail","sleep", };
+    public string[] checklist = new string[7] { "sailing", "isCombat", "isHungry", "thirst", "isDay", "isNight", "hunger" };
     //if command = loop, then parameter is "X-Y"
     //if command = task, then parameter is from taskList
     //if command = check, parameter is boolean statement
     public CodeBlock () {
 
         //Randomizer.getInteger()
-        nestedBlocks = new CodeBlock[5];
+        nestedBlocks = new CodeBlock[3];
         nestedBlocks[0] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("task", "loadCannon") }, "check", "isCombat");
-        nestedBlocks[1] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("check", "hunger~>~10") }, "check", "isDay");
+        nestedBlocks[1] = new CodeBlock (new CodeBlock[3] { new CodeBlock ("check", "hunger~>~10") ,new CodeBlock ("check", "thirst~>~10"), new CodeBlock ("check", "sailing~>~40")}, "check", "isDay");
+         
         nestedBlocks[1].nestedBlocks[0].nestedBlocks = new CodeBlock[1] { new CodeBlock ("task", "eat") };
-        nestedBlocks[2] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("check", "thirst~>~10") }, "check", "isDay");
-        nestedBlocks[2].nestedBlocks[0].nestedBlocks = new CodeBlock[1] { new CodeBlock ("task", "drink") };
-        nestedBlocks[3] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("task", "sail") }, "check", "isSailing");
-        nestedBlocks[4] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("task", "sleep") }, "check", "isNight");
+       // nestedBlocks[2] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("check", "thirst~>~10") }, "check", "isDay");
+        
+        nestedBlocks[1].nestedBlocks[1].nestedBlocks = new CodeBlock[1] { new CodeBlock ("task", "drink") };
+        nestedBlocks[1].nestedBlocks[2].nestedBlocks = new CodeBlock[1] { new CodeBlock ("task", "sail") };
+       nestedBlocks[2] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("check", "sleep~>~40") }, "check", "isNight");
+        nestedBlocks[2].nestedBlocks[0].nestedBlocks = new CodeBlock[1] { new CodeBlock ("task", "sleep") };
     }
     public CodeBlock (CodeBlock[] blockarray, string com, string param) {
         nestedBlocks = blockarray;
@@ -94,6 +97,31 @@ public class CodeBlock {
         }
         this.nestedBlocks = newBlockArray;
     }
+
+   /*  public CodeBlock[] removeIndex(int index,int count){
+        if(count==0)
+            count++;
+            CodeBlock[] output;
+            start:
+        foreach (CodeBlock block in blockArr) { 
+            if(++count==index)
+            {
+              output = block.nestedBlocks;
+            block.nestedBlocks=null;  
+            }
+            
+            return output;
+            if (block.nestedBlocks != null)
+            {
+
+                 goto start;
+            }
+              
+
+        }
+        return str;
+    }*/
+
     public void move (int initial, int final) {
         CodeBlock temp = this.nestedBlocks[initial];
         this.nestedBlocks[initial] = this.nestedBlocks[final];
