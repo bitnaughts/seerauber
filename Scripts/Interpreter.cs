@@ -45,6 +45,7 @@ public class Interpreter {
 
 	*/
 	PirateObject[] pirates;
+	//string[,] vars = new string[20,2];
 
 	public void run () {
 
@@ -57,15 +58,19 @@ public class Interpreter {
 		foreach (CodeBlock block in blocks) {
 			switch (block.command) {
 				case "loop":
-					string[] temp = block.parameter.Split (new Char[] { '-' });
+					string[] temp = block.parameter.Split (new Char[] { '~' });
 					int lower = Int32.Parse (temp[0]), upper = Int32.Parse (temp[1]);
 					for (int i = lower; i < upper; i++)
 						interpret (block.nestedBlocks, index);
 					break;
-
-					//if block.command = task, then enqueue parameter
-
+				case "variable":
+					//vars[index]=pirates[index].parameter.Split("~");
+					break;
+				case "math":
+					//math(param, index)
+					break;
 				case "task":
+					//if block.command = task, then enqueue parameter
 					//pirates[index].tasks.Enqueue (block.parameter);
 					break;
 				case "check":
@@ -77,8 +82,16 @@ public class Interpreter {
 		}
 
 	}
+	void math(string param, int index)
+	{
+		string[] arr = param.Split(new Char[] {'~'});
+		for(int i = 0;i<arr.Length;i++)
+		{
+			
+		}
+	}
 	bool check (string param, int index) {
-		if (!param.Contains ("-")) {
+		if (!param.Contains ("~")) {
 			if (param == "true")
 				return true;
 			if (param == "false")
@@ -109,7 +122,7 @@ public class Interpreter {
 			}
 
 		}
-		string[] arr = param.Split (new Char[] { '-' });
+		string[] arr = param.Split (new Char[] { '~' });
 		bool[] stateBool = new bool[2];
 		float[] stateFloat = new float[2];
 		int counter = 0;

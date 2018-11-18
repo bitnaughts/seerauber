@@ -13,7 +13,7 @@ public class CodeBlock {
 	public string command;
 	public string parameter;
 
-	//const string[] commandlist = { "loop", "task", "check" };
+	//const string[] commandlist = { "loop", "task", "check","variable","math" };
 	//const string[] tasklist = { "sleep", "loadCannon", "eat", "drink" };
 	//if command = loop, then parameter is "X-Y"
 	//if command = task, then parameter is from taskList
@@ -21,9 +21,11 @@ public class CodeBlock {
 
 	public CodeBlock () {
         //Randomizer.getInteger()
-	    nestedBlocks = new CodeBlock[1];
-		string command="";
-		string parameter="";
+	    nestedBlocks = new CodeBlock[4];
+		nestedBlocks[0] = new CodeBlock(new CodeBlock[1] {new CodeBlock("task","loadCannon")},"check","isCombat()");
+		nestedBlocks[1] = new CodeBlock(new CodeBlock[1] {new CodeBlock("task","drink")},"check","isThirsty()");
+		nestedBlocks[2] = new CodeBlock(new CodeBlock[1] {new CodeBlock("task","eat")},"check","isHungry()");
+		nestedBlocks[3] = new CodeBlock(new CodeBlock[1] {new CodeBlock("task","sleep")},"check","isNight()");
 	}
 	public CodeBlock (CodeBlock[] blockarray, string com, string param) {
 		nestedBlocks = blockarray;

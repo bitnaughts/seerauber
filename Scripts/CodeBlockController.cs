@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,17 +11,20 @@ public class CodeBlockController : MonoBehaviour {
 	Vector2 newMouseLocation = new Vector2 (0, 0);
 	int height;
 
+	public GameObject Snapper;
+
 	// Use this for initialization
 	void Start () {
-		reference = new CodeBlock();
-		height = (reference.nestedBlocks == null) ? 0 : reference.nestedBlocks.Length;//  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
+		reference = new CodeBlock ();
+		height = (reference.nestedBlocks == null) ? 0 : reference.nestedBlocks.Length; //  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
 		print (height);
 	}
 
 	// Update is called once per frame
 	void Update () {
-		        //random amount of subchildren
-        this.GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, height * 25 + 20);
+		//random amount of subchildren
+		this.GetComponent<RectTransform> ().sizeDelta = new Vector2(200, 20);
+		transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = new Vector2 (200, height * 25 + 20);
 		//DRAG START
 		if (Input.GetMouseButtonDown (0)) {
 			mouseLocation = Input.mousePosition;
@@ -51,6 +54,12 @@ public class CodeBlockController : MonoBehaviour {
 			}
 			mouseLocation = newMouseLocation;
 		}
+
+		Vector2 snapper = this.transform.localPosition;
+		int step = 30;
+		snapper = new Vector2 ((((int) snapper.x + step/2) / step) * step, (((int) snapper.y + step/2) / step) * step);
+		transform.parent.GetChild(1).localPosition = snapper;
+		//this.transform.localPosition 
 	}
 	public bool clickOn (float xMin, float xMax, float yMin, float yMax, Vector2 mousePosition, Vector2 otherPosition) {
 		if (mousePosition.x + xMin < otherPosition.x && mousePosition.x + xMax > otherPosition.x)
@@ -58,10 +67,9 @@ public class CodeBlockController : MonoBehaviour {
 		return false;
 	}
 
-
-	public int recursivelyGetHeight(CodeBlock refer) {
+	public int recursivelyGetHeight (CodeBlock refer) {
 		for (int i = 0; i < refer.nestedBlocks.Length; i++) {
-			return recursivelyGetHeight(refer.nestedBlocks[i]) + 1;
+			return recursivelyGetHeight (refer.nestedBlocks[i]) + 1;
 		}
 		return 1;
 	}

@@ -1,8 +1,8 @@
-public class StateMachine {
-    public bool isNight;
-    public bool isCombat;
-    public float shipSpeed, shipAngle,mastAngle;
-    public float windSpeed,windAngle;
+public static class StateMachine {
+    public static bool isNight;
+    public static bool isCombat;
+    public static float shipSpeed, shipAngle,mastAngle;
+    public static float windSpeed,windAngle;
 }
 
 

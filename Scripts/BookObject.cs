@@ -4,6 +4,6 @@
 	public static int OPENED = 1;
 	public static int FULLY_OPENED = 2;
 	public static int opened;
-
+	public static PirateObject currentPirate;
 	
 }
