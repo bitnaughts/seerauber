@@ -34,9 +34,12 @@ public class UIController : MonoBehaviour {
 		}
 	}
 
-	public void clickOnPirate (PirateObject pirate) {
-		book.SetActive (true);
+	public static void clickOnPirate (PirateObject pirate) {
+		//book.SetActive (true);
 		BookObject.opened = BookObject.OPENED;
+	}
+	public void clickOnTasks () {
+		BookObject.opened = BookObject.FULLY_OPENED;
 	}
 
 }

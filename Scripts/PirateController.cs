@@ -28,6 +28,7 @@ public class PirateController : MonoBehaviour {
             target = new Vector2(Randomizer.getInteger(), -Randomizer.getInteger());
         }
         MoveTo(target);
+
         // if (!MoveTo(GetLocation(reference.tasks.peek.target)))
 
     }
@@ -35,7 +36,7 @@ public class PirateController : MonoBehaviour {
     void OnMouseOver() {
         if (Input.GetMouseButtonDown(0))
         {
-            codebase.GetComponent<UIController>().clickOnPirate(reference);
+           UIController.clickOnPirate(reference);
         }
     }
     int GetID(string obj) {
