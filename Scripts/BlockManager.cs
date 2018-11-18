@@ -17,16 +17,18 @@ public class BlockManager : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update  () {
 		CodeBlock baseBlock = new CodeBlock (); //BookObject.currentPirate.getBaseBlock ();
 
 		for (int i = 0; i < baseBlock.nestedBlocks.Length; i++) {
-			if (i == 0) {
+		//	if (i == 0) {
 				print (baseBlock.nestedBlocks[i]);
 				blockPool[i].SetActive (true);
 				blockPool[i].transform.GetChild (0).gameObject.GetComponent<CodeBlockController> ().reference = baseBlock.nestedBlocks[i];
+			//	blockPool[i].
+				//parameter
 				blockPool[i].GetComponent<RectTransform> ().localPosition = new Vector2 (0, -100 * i);
-			}
+			//}
 		}
 
 	}

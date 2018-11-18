@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CodeBlockController : MonoBehaviour {
 
+	bool isHovering;
+
 	public CodeBlock reference;
 	//Mouse States
 	Vector2 mouseLocation = new Vector2 (0, 0);
@@ -22,35 +24,42 @@ public class CodeBlockController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		print ("ref:" + reference);
-		if (reference != null) {
+		if (true) {//reference != null) {
 
 			height = (reference.nestedBlocks == null) ? 0 : reference.nestedBlocks.Length; //  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
-		
+			transform.parent.GetChild (1).GetChild(13).gameObject.GetComponent<Text> ().text = reference.parameter;
+				
+
 		//random amount of subchildren
 		this.GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, 20);
 		transform.parent.GetChild (1).GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, height * 25 + 20);
 		//DRAG START
 		if (Input.GetMouseButtonDown (0)) {
 			mouseLocation = Input.mousePosition;
-			reference.isHovering = false;
+			isHovering = false;
 
 			float xMin = this.GetComponent<RectTransform> ().position.x;
-			float xMax = this.GetComponent<RectTransform> ().position.x + this.GetComponent<RectTransform> ().sizeDelta.x; // graphs[graph].positionX + graphs[graph].width;
+			float xMax = this.GetComponent<RectTransform> ().position.x + 200f;//this.GetComponent<RectTransform> ().sizeDelta.x; // graphs[graph].positionX + graphs[graph].width;
 			float yMin = this.GetComponent<RectTransform> ().position.y; //graphs[graph].positionY;
-			float yMax = this.GetComponent<RectTransform> ().position.y + this.GetComponent<RectTransform> ().sizeDelta.y;
+			float yMax = this.GetComponent<RectTransform> ().position.y + 30f;//this.GetComponent<RectTransform> ().sizeDelta.y;
 
 			RectTransform blockTransform = this.GetComponent<RectTransform> ();
 
 			if (clickOn (-blockTransform.sizeDelta.x / 2, blockTransform.sizeDelta.x / 2, -blockTransform.sizeDelta.y / 2, blockTransform.sizeDelta.y / 2, mouseLocation, this.GetComponent<RectTransform> ().position)) {
-				reference.isHovering = true;
+			
+				isHovering = true;
+
 			}
 
 		}
 		//DRAG MOVE
 		if (Input.GetMouseButton (0)) {
+			
+	
 			newMouseLocation = Input.mousePosition;
 
-			if (reference.isHovering) {
+			if (isHovering) {
+						print ("yes, dragging...");
 				Vector2 newPosition = this.GetComponent<RectTransform> ().position;
 				newPosition.x += -(mouseLocation.x - newMouseLocation.x);
 				newPosition.y += -(mouseLocation.y - newMouseLocation.y);
