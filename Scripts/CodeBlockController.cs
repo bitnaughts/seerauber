@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CodeBlockController : MonoBehaviour {
 
-	CodeBlock reference;
+	public CodeBlock reference;
 	//Mouse States
 	Vector2 mouseLocation = new Vector2 (0, 0);
 	Vector2 newMouseLocation = new Vector2 (0, 0);
@@ -21,8 +21,11 @@ public class CodeBlockController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		height = (reference.nestedBlocks == null) ? 0 : reference.nestedBlocks.Length; //  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
+		print ("ref:" + reference);
+		if (reference != null) {
 
+			height = (reference.nestedBlocks == null) ? 0 : reference.nestedBlocks.Length; //  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
+		
 		//random amount of subchildren
 		this.GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, 20);
 		transform.parent.GetChild (1).GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, height * 25 + 20);
@@ -61,6 +64,7 @@ public class CodeBlockController : MonoBehaviour {
 		snapper = new Vector2 ((((int) snapper.x + step / 2) / step) * step, (((int) snapper.y + step / 2) / step) * step);
 		transform.parent.GetChild (1).localPosition = snapper;
 		//this.transform.localPosition 
+		} else height = 0;
 	}
 	public bool clickOn (float xMin, float xMax, float yMin, float yMax, Vector2 mousePosition, Vector2 otherPosition) {
 		if (mousePosition.x + xMin < otherPosition.x && mousePosition.x + xMax > otherPosition.x)
