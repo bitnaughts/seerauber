@@ -15,16 +15,17 @@ public class CodeBlockController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		reference = new CodeBlock ();
-		height = (reference.nestedBlocks == null) ? 0 : reference.nestedBlocks.Length; //  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
+		//reference = new CodeBlock ();
 		print (height);
 	}
 
 	// Update is called once per frame
 	void Update () {
+		height = (reference.nestedBlocks == null) ? 0 : reference.nestedBlocks.Length; //  recursivelyGetHeight(reference);//l.nestedBlocks.Length;
+
 		//random amount of subchildren
-		this.GetComponent<RectTransform> ().sizeDelta = new Vector2(200, 20);
-		transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = new Vector2 (200, height * 25 + 20);
+		this.GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, 20);
+		transform.parent.GetChild (1).GetComponent<RectTransform> ().sizeDelta = new Vector2 (200, height * 25 + 20);
 		//DRAG START
 		if (Input.GetMouseButtonDown (0)) {
 			mouseLocation = Input.mousePosition;
@@ -57,8 +58,8 @@ public class CodeBlockController : MonoBehaviour {
 
 		Vector2 snapper = this.transform.localPosition;
 		int step = 30;
-		snapper = new Vector2 ((((int) snapper.x + step/2) / step) * step, (((int) snapper.y + step/2) / step) * step);
-		transform.parent.GetChild(1).localPosition = snapper;
+		snapper = new Vector2 ((((int) snapper.x + step / 2) / step) * step, (((int) snapper.y + step / 2) / step) * step);
+		transform.parent.GetChild (1).localPosition = snapper;
 		//this.transform.localPosition 
 	}
 	public bool clickOn (float xMin, float xMax, float yMin, float yMax, Vector2 mousePosition, Vector2 otherPosition) {

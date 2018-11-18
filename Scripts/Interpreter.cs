@@ -85,9 +85,15 @@ public class Interpreter {
 	void math(string param, int index)
 	{
 		string[] arr = param.Split(new Char[] {'~'});
+		bool[] bools = new bools[2];
+		float[] floats = new floats[2];
 		for(int i = 0;i<arr.Length;i++)
 		{
-			
+			if (arr[i] == "true") {
+				
+				
+			} else if (arr[i] == "false") {
+
 		}
 	}
 	bool check (string param, int index) {
