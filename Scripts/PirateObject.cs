@@ -9,9 +9,11 @@ public class PirateObject
         //tasks and loops n stuff
     string name; 
     public bool isHungry, isThirsty, isTired, isInjured, isIdle, isMoving;
-
+    public int hunger=9;
     public PirateObject() {
-
+        CodeBlock baseBlock = new CodeBlock();
+        Queue<string> tasks = new Queue<string>();
+        hunger=9;
     }
     public CodeBlock getBaseBlock()
     {

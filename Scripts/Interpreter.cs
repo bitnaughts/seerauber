@@ -1,60 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Interpreter {
-
-	/*
-	! Front End
-	TODO isSailing(), isFighting()
-	TODO state management system
-	TODO Loop, Task, Check
-	* Loop __number__ -> __value__
-	! Back End
-	* OOP
-	TODO Codeblock
-	* Loop -> codeBlock[]
-	*			 -> string parameter = "___" 
-	*      -> string command = "check"
-	* Check()
-	! Pirate
-	TODO CodeBlock Base
-	! Interpreter
-	* For Pirates
-	TODO TriggerEvents()
-	* for all nested blocks
-	* 	Events()
-	*   Recursive call loader
-	*   Queue Tasks()
-	TODO Base {
-	*	 event 
-	*  event
-	*  event
-	* }
-	*/
-
-	// Use this for initialization
-
-	/*
-	Pirate object
-
-	values:
-	codeBlock
-
-
-	*/
-	PirateObject[] pirates;
+public static class Interpreter {
+	public static PirateObject[] pirates;
 	//string[,] vars = new string[20,2];
-
-	public void run () {
+	public static string task;
+	public static void run () {
 
 		for (int i = 0; i < pirates.Length; i++) {
-			interpret (pirates[i].getBaseBlock ().nestedBlocks, i);
+			if (pirates[i].tasks.Count == 0)
+				interpret (pirates[i].getBaseBlock ().nestedBlocks, i);
 		}
 	}
 
-	void interpret (CodeBlock[] blocks, int index) {
+	public static void interpret (CodeBlock[] blocks, int index) {
 		foreach (CodeBlock block in blocks) {
 			switch (block.command) {
 				case "loop":
@@ -71,7 +31,8 @@ public class Interpreter {
 					break;
 				case "task":
 					//if block.command = task, then enqueue parameter
-					//pirates[index].tasks.Enqueue (block.parameter);
+					//task = block.parameter;
+					pirates[index].tasks.Enqueue (block.parameter);
 					break;
 				case "check":
 					if (check (block.parameter, index)) {
@@ -82,65 +43,67 @@ public class Interpreter {
 		}
 
 	}
-	void math (string param, int index) {/*
-		string[] arr = param.Split (new Char[] { '~' });
-		float[] floats = new float[2];
-		int counter = 0;
-		for (int i = 0; i < arr.Length; i++) {
-			switch (param) {
-				case "shipSpeed()":
-					floats[counter] = StateMachine.shipSpeed;
-					counter++;
-					break;
-				case "shipAngle()":
-					floats[counter] = StateMachine.shipAngle;
-					counter++;
-					break;
-				case "windSpeed()":
-					floats[counter] = StateMachine.windSpeed;
-					counter++;
-					break;
-				case "windAngle()":
-					floats[counter] = StateMachine.windAngle;
-					counter++;
-					break;
-				case "mastAngle()":
-					floats[counter] = StateMachine.mastAngle;
-					counter++;
-					break;
-			}
-			if (arr[i] == "true") {
-				bools[counter] = true;
-				counter++;
-			} else if (arr[i] == "false") {
-				bools[counter] = false;
-				counter++;
-			} else {
-				stateFloat[counter] = float.Parse (arr[i]);
-				counter++;
-			}
-		}
-		for (int i = 0; i != arr.Length; i++) 
-		{
-			switch (arr[i]) 
-			{
-				case "+":
-					vars[index,1] = floats[0] + floats[1];
-					break;
-				case "-":
-					vars[index,1] = floats[0] - floats[1];
-					break;
-				case "*":
-					vars[index,1] = floats[0] * floats[1];
-					break;
-				case "/":
-					vars[index,1] = floats[0] / floats[1];
-					break;
-			}
-		}
+	public static void math (string param, int index) {
+		/*
+				string[] splitParameterArray = param.Split (new Char[] { '~' });
+				float[] floats = new float[2];
+				int counter = 0;
+				for (int i = 0; i < splitParameterArray.Length; i++) {
+					switch (param) {
+						case "shipSpeed()":
+							floats[counter] = StateMachine.shipSpeed;
+							counter++;
+							break;
+						case "shipAngle()":
+							floats[counter] = StateMachine.shipAngle;
+							counter++;
+							break;
+						case "windSpeed()":
+							floats[counter] = StateMachine.windSpeed;
+							counter++;
+							break;
+						case "windAngle()":
+							floats[counter] = StateMachine.windAngle;
+							counter++;
+							break;
+						case "mastAngle()":
+							floats[counter] = StateMachine.mastAngle;
+							counter++;
+							break;
+					}
+					if (splitParameterArray[i] == "true") {
+						bools[counter] = true;
+						counter++;
+					} else if (splitParameterArray[i] == "false") {
+						bools[counter] = false;
+						counter++;
+					} else {
+						stateFloat[counter] = float.Parse (splitParameterArray[i]);
+						counter++;
+					}
+				}
+				for (int i = 0; i != splitParameterArray.Length; i++) 
+				{
+					switch (splitParameterArray[i]) 
+					{
+						case "+":
+							vars[index,1] = floats[0] + floats[1];
+							break;
+						case "-":
+							vars[index,1] = floats[0] - floats[1];
+							break;
+						case "*":
+							vars[index,1] = floats[0] * floats[1];
+							break;
+						case "/":
+							vars[index,1] = floats[0] / floats[1];
+							break;
+					}
+				}
 
-	*/}
-	bool check (string param, int index) {
+			*/
+	}
+	public static bool check (string param, int index) {
 		if (!param.Contains ("~")) {
 			if (param == "true")
 				return true;
@@ -149,6 +112,9 @@ public class Interpreter {
 			switch (param) {
 				case "isNight":
 					return StateMachine.isNight;
+					break;
+				case "isDay":
+					return StateMachine.isDay;
 					break;
 				case "isHungry":
 					return pirates[index].isHungry;
@@ -169,98 +135,68 @@ public class Interpreter {
 				case "isMoving":
 					return pirates[index].isMoving;
 					break;
+				case "isSailing":
+					return StateMachine.isSailing;
+					break;
 			}
 
-		}
-		string[] arr = param.Split (new Char[] { '~' });
-		bool[] stateBool = new bool[4];
-		float[] stateFloat = new float[4];
-		int counter = 0;
-		for (int i = 0; i != arr.Length; i++) {
-			//if (arr[i].Contains ("(") && arr[i].Contains (")")) {
-				switch (param) {
-					case "isNight":
-						stateBool[counter] = StateMachine.isNight;
-						break;
-					case "isHungry":
-						stateBool[counter] = pirates[index].isHungry;
-						break;
-					case "isThirsty":
-						stateBool[counter] = pirates[index].isThirsty;
-						break;
-					case "isCombat":
-						stateBool[counter] = StateMachine.isCombat;
-						break;
-					case "isTired":
-						stateBool[counter] = pirates[index].isTired;
-						break;
-					case "isInjured":
-						stateBool[counter] = pirates[index].isInjured;
-						break;
-					case "isIdle":
-						stateBool[counter] = pirates[index].isIdle;
-						break;
-					case "isMoving":
-						stateBool[counter] = pirates[index].isMoving;
-						break;
-					case "shipSpeed":
-						stateFloat[counter] = StateMachine.shipSpeed;
-						break;
-					case "shipAngle":
-						stateFloat[counter] = StateMachine.shipAngle;
-						break;
-					case "windSpeed":
-						stateFloat[counter] = StateMachine.windSpeed;
-						break;
-					case "windAngle":
-						stateFloat[counter] = StateMachine.windAngle;
-						break;
-					case "mastAngle":
-						stateFloat[counter] = StateMachine.mastAngle;
-						break;
+		} else {
+			string[] splitParameterArray = param.Split ('~');
+			// hunger~<~10
+			bool[] stateBool = new bool[4];
+			int[] stateFloat = new int[4];
+			int counter = 0;
+
+			for (int i = 0; i < splitParameterArray.Length; i+=2) {
+				//if (splitParameterArray[i].Contains ("(") && splitParameterArray[i].Contains (")")) {
+				if (param == "hunger") {
+					stateFloat[counter] = pirates[index].hunger;
+				} else if (param == "isThirsty") {
+					stateBool[counter] = pirates[index].isThirsty;
+				} else if (splitParameterArray[i] == "true") {
+					stateBool[counter] = true;
+					counter++;
+				} else if (splitParameterArray[i] == "false") {
+					stateBool[counter] = false;
+					counter++;
+				} else  {
+					task = param + ", " + i + "," + splitParameterArray.Length.ToString ();
+					stateFloat[counter] = Int32.Parse (splitParameterArray[i]);
+					counter++;
 				}
-			if (arr[i] == "true") {
-				stateBool[counter] = true;
-				counter++;
-			} else if (arr[i] == "false") {
-				stateBool[counter] = false;
-				counter++;
-			} else {
-				stateFloat[counter] = float.Parse (arr[i]);
-				counter++;
+
 			}
-		}
-		counter =0;
-		for (int i = 0; i != arr.Length; i++) {
-			switch (arr[i]) {
+			counter = 0;
+			switch (splitParameterArray[1]) {
 				case "<":
-					return stateFloat[counter] < stateFloat[counter+1];
+					return stateFloat[counter] < stateFloat[counter + 1];
 					break;
 				case ">":
-					return stateFloat[counter] > stateFloat[counter+1];
+					return stateFloat[counter] > stateFloat[counter + 1];
 					break;
 				case "<=":
-					return stateFloat[counter] <= stateFloat[counter+1];
+					return stateFloat[counter] <= stateFloat[counter + 1];
 					break;
 				case ">=":
-					return stateFloat[counter] >= stateFloat[counter+1];
+					return stateFloat[counter] >= stateFloat[counter + 1];
 					break;
 				case "!=":
-					return stateFloat[counter] != stateFloat[counter+1];
+					return stateFloat[counter] != stateFloat[counter + 1];
 					break;
 				case "==":
-					return stateFloat[counter] == stateFloat[counter+1];
+					return stateFloat[counter] == stateFloat[counter + 1];
 					break;
 				case "||":
-					return stateBool[counter] || stateBool[counter+1];
+					return stateBool[counter] || stateBool[counter + 1];
 					break;
 				case "&&":
-					return stateBool[counter] && stateBool[counter+1];
+					return stateBool[counter] && stateBool[counter + 1];
 					break;
 			}
+
+			return false;
 		}
 		return false;
-
 	}
 
 	/*

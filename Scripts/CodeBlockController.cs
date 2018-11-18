@@ -28,15 +28,18 @@ public class CodeBlockController : MonoBehaviour {
 		if (true) { //reference != null) {
 			height = 0;
 			if (reference.nestedBlocks != null) {
-				for (int i = 0; i < reference.nestedBlocks.Length; i++) {
-					if (reference.nestedBlocks[i].nestedBlocks != null) {
-						for (int j = 0; j < reference.nestedBlocks[i].nestedBlocks.Length; j++) {
-							height++;
-						}
-					}
-					height++;
-				}
+				height = recursivelyGetHeight (reference);
+				/* 
 
+								for (int i = 0; i < reference.nestedBlocks.Length; i++) {
+									if (reference.nestedBlocks[i].nestedBlocks != null) {
+										for (int j = 0; j < reference.nestedBlocks[i].nestedBlocks.Length; j++) {
+											height++;
+										}
+									}
+									height++;
+								}
+				*/
 			}
 
 			//height = (reference.nestedBlocks == null) ? 0 : // recursivelyGetHeight (reference); //l.nestedBlocks.Length;
@@ -98,6 +101,6 @@ public class CodeBlockController : MonoBehaviour {
 				return recursivelyGetHeight (refer.nestedBlocks[i]) + 1;
 			}
 		}
-		return 1;
+		return 0;
 	}
 }

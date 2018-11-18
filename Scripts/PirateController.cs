@@ -8,7 +8,7 @@ public class PirateController : MonoBehaviour {
     const int LADDER = 0;
 
     GameObject codebase;
-    PirateObject reference;
+    public PirateObject reference;
 
     // Use this for initialization
     void Start () {
@@ -21,6 +21,8 @@ public class PirateController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        print(Interpreter.task);
 
         if (count++ == 100)
         {
