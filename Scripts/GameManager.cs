@@ -19,11 +19,9 @@ public class GameManager : MonoBehaviour {
 			pirates[i] = new PirateObject ();
 			piratePool[i].GetComponent<PirateController>().reference = pirates[i];
 		}
-		Interpreter.pirates = pirates;
+		//Interpreter.pirates = pirates;
 	}
 
 	// Update is called once per frame
-	void Update () {
-		Interpreter.run ();
-	}
+	
 }

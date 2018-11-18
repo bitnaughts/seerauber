@@ -3,16 +3,17 @@ using System;
 using System.Collections.Generic;
 public class PirateObject
 {
-    CodeBlock baseBlock = new CodeBlock();
-    public Queue<string> tasks = new Queue<string>();
+    CodeBlock baseBlock;
+    public Queue<string> tasks;
         //events in it
         //tasks and loops n stuff
     string name; 
     public bool isHungry, isThirsty, isTired, isInjured, isIdle, isMoving;
     public int hunger=9;
+    public int thirst=9;
     public PirateObject() {
-        CodeBlock baseBlock = new CodeBlock();
-        Queue<string> tasks = new Queue<string>();
+        baseBlock = new CodeBlock();
+        tasks = new Queue<string>();
         hunger=9;
     }
     public CodeBlock getBaseBlock()

@@ -13,20 +13,23 @@ public class CodeBlock {
 
     public int indent;
 
-    //const string[] commandlist = { "loop", "task", "check","variable","math" };
-    //const string[] tasklist = { "sleep", "loadCannon", "eat", "drink" };
+    public string[] commandlist = new string[5] { "loop", "task", "check", "variable", "math" };
+    public string[] tasklist = new string[5] { "sleep", "loadCannon", "eat", "drink", "sail" };
+    public string[] checklist = new string[7] { "isSailing", "isCombat", "isHungry", "isThirsty", "isDay", "isNight", "hunger" };
     //if command = loop, then parameter is "X-Y"
     //if command = task, then parameter is from taskList
     //if command = check, parameter is boolean statement
     public CodeBlock () {
 
         //Randomizer.getInteger()
-        nestedBlocks = new CodeBlock[4];
+        nestedBlocks = new CodeBlock[5];
         nestedBlocks[0] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("task", "loadCannon") }, "check", "isCombat");
-        nestedBlocks[1] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("check", "hunger~<~10") }, "check", "isDay");
+        nestedBlocks[1] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("check", "hunger~>~10") }, "check", "isDay");
         nestedBlocks[1].nestedBlocks[0].nestedBlocks = new CodeBlock[1] { new CodeBlock ("task", "eat") };
-        nestedBlocks[2] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("task", "sail") }, "check", "isSailing");
-        nestedBlocks[3] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("task", "sleep") }, "check", "isNight");
+        nestedBlocks[2] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("check", "thirst~>~10") }, "check", "isDay");
+        nestedBlocks[2].nestedBlocks[0].nestedBlocks = new CodeBlock[1] { new CodeBlock ("task", "drink") };
+        nestedBlocks[3] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("task", "sail") }, "check", "isSailing");
+        nestedBlocks[4] = new CodeBlock (new CodeBlock[1] { new CodeBlock ("task", "sleep") }, "check", "isNight");
     }
     public CodeBlock (CodeBlock[] blockarray, string com, string param) {
         nestedBlocks = blockarray;

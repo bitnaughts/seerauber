@@ -3,25 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 
 public static class Interpreter {
-	public static PirateObject[] pirates;
+//	public static PirateObject[] pirates;
 	//string[,] vars = new string[20,2];
-	public static string task;
-	public static void run () {
+	public static string task = "unset";
+	public static Queue<string> run (PirateObject pirate)
+	{
+		return interpret (pirate.getBaseBlock ().nestedBlocks, pirate, new Queue<string>());
+	}
+	/* public static void run () {
 
 		for (int i = 0; i < pirates.Length; i++) {
 			if (pirates[i].tasks.Count == 0)
-				interpret (pirates[i].getBaseBlock ().nestedBlocks, i);
+				interpret (pirate.getBaseBlock ().nestedBlocks, pirate,new Queue<string>);
 		}
-	}
+	}*/
 
-	public static void interpret (CodeBlock[] blocks, int index) {
+	public static Queue<string> interpret (CodeBlock[] blocks,PirateObject pirate,Queue<string> queue) {
+		
 		foreach (CodeBlock block in blocks) {
 			switch (block.command) {
 				case "loop":
 					string[] temp = block.parameter.Split (new Char[] { '~' });
 					int lower = Int32.Parse (temp[0]), upper = Int32.Parse (temp[1]);
 					for (int i = lower; i < upper; i++)
-						interpret (block.nestedBlocks, index);
+						queue = interpret (block.nestedBlocks, pirate,queue);
 					break;
 				case "variable":
 					//vars[index]=pirates[index].parameter.Split("~");
@@ -32,15 +37,17 @@ public static class Interpreter {
 				case "task":
 					//if block.command = task, then enqueue parameter
 					//task = block.parameter;
-					pirates[index].tasks.Enqueue (block.parameter);
+					queue.Enqueue (block.parameter);
 					break;
 				case "check":
-					if (check (block.parameter, index)) {
-						interpret (block.nestedBlocks, index);
+				//	task = check (block.parameter, index) + "";
+					if (check (block.parameter, pirate)) {
+						queue = interpret (block.nestedBlocks, pirate,queue);
 					}
 					break;
 			}
 		}
+		return queue;
 
 	}
 	public static void math (string param, int index) {
@@ -103,7 +110,7 @@ public static class Interpreter {
 
 			*/
 	}
-	public static bool check (string param, int index) {
+	public static bool check (string param, PirateObject pirate) {
 		if (!param.Contains ("~")) {
 			if (param == "true")
 				return true;
@@ -117,23 +124,23 @@ public static class Interpreter {
 					return StateMachine.isDay;
 					break;
 				case "isHungry":
-					return pirates[index].isHungry;
+					return pirate.isHungry;
 				case "isThirsty":
-					return pirates[index].isThirsty;
+					return pirate.isThirsty;
 				case "isCombat":
 					return StateMachine.isCombat;
 					break;
 				case "isTired":
-					return pirates[index].isTired;
+					return pirate.isTired;
 					break;
 				case "isInjured":
-					return pirates[index].isInjured;
+					return pirate.isInjured;
 					break;
 				case "isIdle":
-					return pirates[index].isIdle;
+					return pirate.isIdle;
 					break;
 				case "isMoving":
-					return pirates[index].isMoving;
+					return pirate.isMoving;
 					break;
 				case "isSailing":
 					return StateMachine.isSailing;
@@ -147,28 +154,32 @@ public static class Interpreter {
 			int[] stateFloat = new int[4];
 			int counter = 0;
 
-			for (int i = 0; i < splitParameterArray.Length; i+=2) {
+			for (int i = 0; i < splitParameterArray.Length; i += 2) {
 				//if (splitParameterArray[i].Contains ("(") && splitParameterArray[i].Contains (")")) {
-				if (param == "hunger") {
-					stateFloat[counter] = pirates[index].hunger;
-				} else if (param == "isThirsty") {
-					stateBool[counter] = pirates[index].isThirsty;
+				if (splitParameterArray[i] == "hunger") {
+					stateFloat[counter] = pirate.hunger;
+					counter++;
+				} else if (splitParameterArray[i] == "thirst") {
+					stateBool[counter] = pirate.thirst;
+					counter++;
 				} else if (splitParameterArray[i] == "true") {
 					stateBool[counter] = true;
 					counter++;
 				} else if (splitParameterArray[i] == "false") {
 					stateBool[counter] = false;
 					counter++;
-				} else  {
-					task = param + ", " + i + "," + splitParameterArray.Length.ToString ();
+				} else {
+					//	task = param + ", " + i + "," + splitParameterArray.Length.ToString ();
 					stateFloat[counter] = Int32.Parse (splitParameterArray[i]);
 					counter++;
 				}
 
 			}
 			counter = 0;
+			//task = stateFloat[counter].ToString () + ", "+stateFloat[counter + 1];
 			switch (splitParameterArray[1]) {
 				case "<":
+				task = stateFloat[counter].ToString () + ",++ "+stateFloat[counter + 1];
 					return stateFloat[counter] < stateFloat[counter + 1];
 					break;
 				case ">":
