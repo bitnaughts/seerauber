@@ -1,12 +1,9 @@
-﻿public class BookObject 
+﻿public static class BookObject 
 {
-	const int CLOSED = 0;
-	const int OPENED = 1;
-	const int FULLY_OPENED = 2;
-	int opened;
+	public static int CLOSED = 0;
+	public static int OPENED = 1;
+	public static int FULLY_OPENED = 2;
+	public static int opened;
 
-	public BookObject () {
-		opened = CLOSED;
-	}
 	
 }
