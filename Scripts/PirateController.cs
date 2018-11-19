@@ -14,6 +14,8 @@ public class PirateController : MonoBehaviour {
     void Start () {
         reference = new PirateObject ();
         codebase = GameObject.Find ("CodeBase");
+        this.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = new Color(Random.Range(0.0f,1.0f),Random.Range(0.0f,1.0f),Random.Range(0.0f,1.0f));
+
     }
 
     int count = 0;

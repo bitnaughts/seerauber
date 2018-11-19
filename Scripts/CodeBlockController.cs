@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class CodeBlockController : MonoBehaviour {
 
@@ -20,6 +21,11 @@ public class CodeBlockController : MonoBehaviour {
 	void Start () {
 		//reference = new CodeBlock ();
 		print (height);
+        Color ranColor = new Color(Random.Range(0.8f, 1.0f), Random.Range(0.8f, 1.0f), Random.Range(0.8f, 1.0f));
+        for (int i = 0; i < 13; i++)
+        {
+            this.transform.parent.GetChild(1).GetChild(0).GetChild(i).GetComponent<Image>().color = ranColor;
+        }
 	}
 
 	// Update is called once per frame
